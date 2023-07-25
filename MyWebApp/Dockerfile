@@ -1,6 +1,9 @@
 # Start from a base image with known vulnerabilities
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
+FROM debian:jessie AS build-env
 WORKDIR /app
+
+# Install a package with known vulnerabilities
+RUN apt-get update && apt-get install -y openssl libssl1.0.0
 
 # Copy csproj and restore as distinct layers
 COPY *.csproj ./
